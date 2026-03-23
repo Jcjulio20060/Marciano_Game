@@ -1,6 +1,14 @@
 public class Ranking {
-    String name;
-    int attempts;
+    public int getAttempts() {
+        return attempts;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    private final String name;
+    private final int attempts;
 
     Ranking(String name, int attempts){
         this.name = name;

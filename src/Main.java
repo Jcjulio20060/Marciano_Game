@@ -1,15 +1,15 @@
 /* Importação das classes */
-// File
+// File para manipulação de arquivos e dados
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-// Array List
+// ArrayList para salvar informações e dados da partida nos arquivos.
 import java.util.ArrayList;
 import java.util.Comparator;
 
-// Scanner e Random
+// Scanner para entrada de dados e informações e Random para gerar um número aleatório
 import java.util.Scanner;
 import java.util.Random;
 
@@ -20,13 +20,13 @@ public class Main {
 
         // Carrrgando Score
         System.out.println("Carregando Score...");
-        FileExist();
-        ReadScore();
+        fileExist();
+        readScore();
         System.out.println(" ");
 
         /* Carrega Tela inicial do jogo */
         System.out.println("Carregando jogo:");
-        InitialHistory();
+        initialHistory();
         System.out.println(" "); /* Espaçamento de texto */
 
         // Variáveis para definir máximo de tentativas
@@ -51,8 +51,8 @@ public class Main {
         }
 
         /* Gera um número aleatório */
-        int randNumber = GenNumber();
-        Sleep(5000);
+        int randNumber = genNumber();
+        sleep(5000);
         System.out.println(" "); /* Espaçamento de texto */
 
         /* Definição de veriáveis find e attempts */
@@ -75,7 +75,7 @@ public class Main {
                 }
 
                 // Se Validation retornar false, significa que achou!
-                if (!Validation(userNumber, randNumber)) {
+                if (!validation(userNumber, randNumber)) {
                     find = false; // Isso vai parar o while
                 }
 
@@ -88,53 +88,53 @@ public class Main {
 
         /* Carrega a mensagem final com as tentativas */
         if (!find) {
-            MessageFinalGame(attempts);
+            messageFinalGame(attempts, scan);
         } else {
-            FinalHistory(attempts);
+            finalHistory(attempts);
         }
 
         /* Fechamento do scan */
         scan.close();
     }
 
-    static void InitialHistory(){
+    static void initialHistory(){
         /* Tela inicial do jogo com história */
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
         System.out.println("Em um certo dia na era medieval,");
-        Sleep(2000);
+        sleep(2000);
         System.out.println("Um guerreiro destemido olha uma nave passando pelo céu");
-        Sleep(2000);
-        System.out.println("E pousa em uma floresta. O Guerreiro vai atrás para descorbrir");
-        Sleep(2000);
+        sleep(2000);
+        System.out.println("E pousa em uma floresta. O Guerreiro vai atrás para descobrir");
+        sleep(2000);
         System.out.println("Quando chega na nave, não avista ninguém");
-        Sleep(2000);
+        sleep(2000);
         System.out.println("E ele vai à procura do marciano");
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-        Sleep(2000);
+        sleep(2000);
         System.out.println("Você assume o guerreiro e tem uma missão!");
-        Sleep(500);
+        sleep(500);
         System.out.println("Achar o marciano, boa sorte!");
     }
 
-    static void FinalHistory(int attempts){
+    static void finalHistory(int attempts){
         // Tela de morte do Guerreiro, caso não encontre em x tentativas (Caso tenha selecionado)
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
         System.out.println("Hm... Como você não me achou nas " + attempts + " tentativas, vou lhe pegar!");
-        Sleep(2000);
-        System.out.println("O marciano saca da cintura a arma e plasma");
-        Sleep(2000);
+        sleep(2000);
+        System.out.println("O marciano saca da cintura a arma de plasma");
+        sleep(2000);
         System.out.println("O cavalheiro começa a correr de medo");
-        Sleep(5000);
-        System.out.println("O cavalheiro é atingio por um raio e cai no chão");
-        Sleep(2000);
+        sleep(5000);
+        System.out.println("O cavalheiro é atingido por um raio e cai no chão");
+        sleep(2000);
         System.out.println("E ouve suas últimas palavras");
-        Sleep(2000);
+        sleep(2000);
         System.out.println("'Dessa vez você não conseguiu, tente na próxima...'");
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-        Sleep(1000);
+        sleep(1000);
     }
 
-    static int GenNumber(){
+    static int genNumber(){
         /* Importação da variável random */
         Random random = new Random();
 
@@ -144,31 +144,30 @@ public class Main {
         return random.nextInt(100) + 1;
     }
 
-    static boolean Validation(int userNumber, int randNumber){
+    static boolean validation(int userNumber, int randNumber){
         // Verifica se o número digitado é igual ao número do marciano
         if(userNumber == randNumber){
             /* Caso o número digitado for igual, o usuário ganha */
             return false;
         } else if(userNumber > randNumber){
             /* Caso o número digitado for maior, ele está numa casa amior */
-            Sleep(2000);
+            sleep(2000);
             System.out.println("Você ouviu uma voz à esquerda, vá atrás");
             return true;
         } else {
             /* Caso o número digitado for maior, ele está numa casa menor */
-            Sleep(2000);
+            sleep(2000);
             System.out.println("Você ouviu uma voz à direita, vá atrás");
             return true;
         }
     }
 
-    static void MessageFinalGame(int attempts){
+    static void messageFinalGame(int attempts, Scanner scan){
         // Mensagem de encontro com o marciano
-        Scanner scan = new Scanner(System.in);
         System.out.println("Que susto! Você me achou depois de " + attempts + " árvores!");
 
         /* mensagem de despedida */
-        Sleep(1000);
+        sleep(1000);
         System.out.println("Foi um prazer jogar com você! Até a próxima!");
 
         // Pede o nome do guerreiro para salvar na história
@@ -176,13 +175,13 @@ public class Main {
             System.out.print("Digite o nome do guerreiro para continuar: ");
             String name = scan.nextLine();
             // Chama o metodo WriteScore para escrever no score
-            WriteScore(name, attempts);
+            writeScore(name, attempts);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    static void FileExist(){
+    static void fileExist(){
         try {
             // Verifica se o arquivo existe, se sim, fala que existe, caso contrário, ele cria um
             File arquivo = new File("score.txt"); // Create File object
@@ -193,21 +192,21 @@ public class Main {
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
-            e.printStackTrace(); // Print error details
+            e.fillInStackTrace(); // Print error details
         }
     }
 
-    static void WriteScore(String name, int attempts) {
+    static void writeScore(String name, int attempts) {
         // Este metodo grava o nome do guerreiro e o número de tentativas na história
         try (FileWriter myWriter = new FileWriter("score.txt", true)) {
-            myWriter.write(name + ":" + attempts + "\n");
-            System.out.println("Sua marca foi registrada na história!");
+            myWriter.write(name + "|" + attempts + "\n");
+            System.out.println("Sua marca foi salva na história!");
         } catch (IOException e) {
             System.out.println("Erro ao gravar score.");
         }
     }
 
-    static void ReadScore() {
+    static void readScore() {
         // Este metodo lê o arquivo de score da história e salva em um ArrayList
         File myObj = new File("score.txt");
         ArrayList<Ranking> lista = new ArrayList<>();
@@ -215,15 +214,15 @@ public class Main {
         try (Scanner myReader = new Scanner(myObj)) {
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                // Supondo que você salvou como "Nome:Tentativas"
-                String[] partes = data.split(":");
+                // Supondo que você salvou como "No
+                String[] partes = data.split("\\|");
                 if (partes.length == 2) {
                     lista.add(new Ranking(partes[0], Integer.parseInt(partes[1])));
                 }
             }
 
             // Ordenar: O menor número de tentativas vence!
-            lista.sort(Comparator.comparingInt(r -> r.attempts));
+            lista.sort(Comparator.comparingInt(Ranking::getAttempts));
 
             System.out.println("\n=== RANKING DOS GUERREIROS ===");
             for (int i = 0; i < Math.min(lista.size(), 5); i++) { // Mostra o Top 5
@@ -234,7 +233,7 @@ public class Main {
         }
     }
 
-    static void Sleep(int time){
+    static void sleep(int time){
         // Metodo para dar um intervalo de tempo durante as frases.
         try {
             Thread.sleep(time);

@@ -1,2 +1,3 @@
-julio:7
-joão:6
+julio|7
+joão|6
+João|3
